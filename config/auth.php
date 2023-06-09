@@ -108,4 +108,10 @@ return [
 
     'password_timeout' => 10800,
 
+    'remember' => [
+        'provider' => 'users',
+        'table' => 'remember_tokens',
+        'expire' => 60 * 24 * 30,
+    ],
+
 ];
