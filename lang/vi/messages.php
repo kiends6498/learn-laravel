@@ -48,4 +48,6 @@ return [
     'email_not_registered' => 'Email này chưa đăng kí tài khoản.',
     'email_registered' => 'Email này đã đăng kí tài khoản.',
     'password_not_match' => 'Mật khẩu không khớp.',
+
+    'invalid_credentials' => 'Email hoặc mật khẩu sai.',
 ];

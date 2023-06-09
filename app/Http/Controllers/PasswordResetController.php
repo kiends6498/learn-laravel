@@ -108,8 +108,8 @@ class PasswordResetController extends Controller
         $result = $this->userRepository->resetPasswordRepo($email, $newPassword);
         if (!$result)
             return redirect()->back()->withErrors(['message' => __('messages.oops')]);
-        
-            // return Redirect::to('/password-reset-success');
+
+        // return Redirect::to('/password-reset-success');
         return redirect()->route('showResetSuccess');
 
     }
@@ -126,21 +126,28 @@ class PasswordResetController extends Controller
 
     public function login(LoginFormRequest $request)
     {
-        $email = $request->input('email');
-        $password = $request->input('password');
+        // $email = $request->input('email');
+        // $password = $request->input('password');
 
-        $result = $this->userRepository->findByEmail($email);
+        // $result = $this->userRepository->findByEmail($email);
 
-        if (!$result)
-            return redirect()->back()->withErrors(['message' => __('messages.email_not_registered')]);
+        // if (!$result)
+        //     return redirect()->back()->withErrors(['message' => __('messages.email_not_registered')]);
 
-        if (!password_verify($password, $result->password))
-            return redirect()->back()->withErrors(['message' => __('messages.password_not_match')]);
+        // if (!password_verify($password, $result->password))
+        //     return redirect()->back()->withErrors(['message' => __('messages.password_not_match')]);
 
-        Auth::login($result);
-        return redirect()->route('homelogin');
+        // Auth::login($result);
+        // return redirect()->route('homelogin');
 
 
+        $credentials = $request->only('email', 'password');
+
+        if (Auth::attempt($credentials)) {
+            return redirect()->route('homelogin');
+        }
+
+        return redirect()->back()->withErrors(['message' => __('messages.invalid_credentials')]);
     }
 
     public function homenonlogin()
