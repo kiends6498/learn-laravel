@@ -131,7 +131,7 @@ class PasswordResetController extends Controller
 
         $result = $this->userRepository->findByEmail($email);
 
-        if ($result)
+        if (!$result)
             return redirect()->back()->withErrors(['message' => __('messages.email_not_registered')]);
 
         if (!password_verify($password, $result->password))
