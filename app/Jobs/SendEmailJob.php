@@ -8,7 +8,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use App\Services\MailService;
+use Illuminate\Support\Facades\Mail;
 use App\Mail\OtpMail;
 
 class SendEmailJob implements ShouldQueue
@@ -25,9 +25,9 @@ class SendEmailJob implements ShouldQueue
     }
 
 
-    public function handle(MailService $mailService)
+    public function handle()
     {
         $emailContent = new OtpMail($this->otp);
-        $mailService->sendMail($this->email, $emailContent);
+        Mail::to($this->email)->send($emailContent);
     }
 }

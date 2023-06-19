@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Repositories\UserRepository;
+use App\Repositories\UserRepositoryInterface;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\RegisterFormRequest;
@@ -12,7 +12,7 @@ class RegisterController extends Controller
 {
     private $userRepository;
 
-    public function __construct(UserRepository $userRepository)
+    public function __construct(UserRepositoryInterface $userRepository)
     {
         $this->userRepository = $userRepository;
     }
@@ -28,10 +28,6 @@ class RegisterController extends Controller
         $name = $request->input('name');
         $newPassword = $request->input('newPassword');
         $cfPassword = $request->input('cfPassword');
-
-        $user_exists = $this->userRepository->findByEmail($email);
-        if ($user_exists)
-            return redirect()->back()->withErrors(['message' => __('messages.email_registered')]);
 
         $create_success = $this->userRepository->createNewUser($email, $name, $newPassword);
         if (!$create_success)

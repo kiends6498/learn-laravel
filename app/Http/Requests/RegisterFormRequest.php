@@ -11,7 +11,7 @@ class RegisterFormRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'email' => 'required|email',
+            'email' => 'required|email|unique:users',
             'newPassword' => 'required|min:6',
             'cfPassword' => 'required|same:newPassword',
         ];
@@ -27,6 +27,7 @@ class RegisterFormRequest extends FormRequest
             'newPassword.min' => __('messages.new_password_min'),
             'cfPassword.required' => __('messages.cf_password_required'),
             'cfPassword.same' => __('messages.cf_password_same'),
+            'email.unique' => __('messages.email_registered'),
         ];
     }
 }
