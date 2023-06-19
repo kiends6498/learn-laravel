@@ -14,7 +14,7 @@ class EmailFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'required|email',
+            'email' => 'required|email|exists:users,email',
         ];
     }
 
@@ -23,6 +23,7 @@ class EmailFormRequest extends FormRequest
         return [
             'email.required' => __('messages.email_required'),
             'email.email' => __('messages.email_email'),
+            'email.exists' => __('messages.email_not_register'),
         ];
     }
 }

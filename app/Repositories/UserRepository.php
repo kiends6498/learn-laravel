@@ -23,10 +23,6 @@ class UserRepository implements UserRepositoryInterface
     public function resetPasswordRepo($email, $newPassword)
     {
         $user = $this->findByEmail($email);
-
-        if (!$user)
-            return false;
-
         $user->password = bcrypt($newPassword);
         $user->save();
         return true;

@@ -35,10 +35,6 @@ class PasswordResetController extends Controller
 
     public function sendOtpViaEmail(EmailFormRequest $request)
     {
-        $user = $this->userRepository->findByEmail($request->email);
-        if (!$user)
-            return redirect()->back()->withErrors(['message' => __('messages.email_not_register')]);
-
         $otp = random_int(100000, 999999);
         $expiryTime = now()->addMinutes(3);
 
@@ -47,8 +43,7 @@ class PasswordResetController extends Controller
         $this->otpRepository->createOtp($request->email, $otp, $expiryTime);
         return redirect()->route('verifyOTPForm', ['email' => $request->email]);
         // return Redirect::to('/verify-otp?email=' . urlencode($request->email));
-
-
+        
     }
 
     public function sendOTPForm()
